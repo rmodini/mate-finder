@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { BrowserRouter, Route, Link } from "react-router-dom";
-import Map from "./map";
+import MapContainer from "./map";
 
 export default class App extends React.Component {
     constructor() {
@@ -61,7 +61,7 @@ export default class App extends React.Component {
                         (that we we use .json at the end on the express) */}
                     {/* use render instead of component to pass it data */}
                     <div className="content">
-                        <Route path="/" component={Map} />
+                        <Route path="/" component={MapContainer} />
                         {/* <Route
                             exact
                             path="/prof-initialroute"
