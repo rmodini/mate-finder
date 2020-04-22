@@ -13,6 +13,7 @@ const mapStyles = {
 export class CurrentLocation extends React.Component {
     constructor(props) {
         super(props);
+        console.log("props in curr loc", props);
 
         const { lat, lng } = this.props.initialCenter;
         this.state = {
@@ -44,6 +45,9 @@ export class CurrentLocation extends React.Component {
         }
         if (prevState.currentLocation !== this.state.currentLocation) {
             this.recenterMap();
+        }
+        if (prevProps.newCenter !== this.props.newCenter) {
+            this.setState({ currentLocation: this.props.newCenter });
         }
     }
     recenterMap() {

@@ -5,6 +5,10 @@
     position: absolute;
     top: 70%;
 }
+.auto-complete {
+    position: absolute;
+    top: 90%;
+}
 /* .map {
     border: #969696;
 } */

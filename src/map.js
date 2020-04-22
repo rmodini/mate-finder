@@ -1,9 +1,9 @@
 import React from "react";
 import secrets from "../secrets";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
-import Autocomplete from "react-places-autocomplete";
 import CurrentLocation from "./current-location";
 import AddLocation from "./add-location";
+import LocationSearchInput from "./autocomplete";
 
 export class MapContainer extends React.Component {
     constructor(props) {
@@ -13,24 +13,23 @@ export class MapContainer extends React.Component {
             activeMarker: {}, //Shows the active marker upon click
             selectedPlace: {}, //Shows the infoWindow to the selected place upon a marker
             markers: [
-                { name: "alex", position: { lat: 52.522, lng: 13.4021 } },
-                { name: "near alex", position: { lat: 52.523, lng: 13.4026 } },
+                { address: "alex", latLng: { lat: 52.522, lng: 13.4021 } },
+                { address: "near alex", latLng: { lat: 52.523, lng: 13.4026 } },
             ],
-            address: "",
-            city: "",
-            area: "",
-            state: "",
-            mapPosition: {
-                lat: this.props.center.lat,
-                lng: this.props.center.lng,
-            },
-            markerPosition: {
-                lat: this.props.center.lat,
-                lng: this.props.center.lng,
-            },
+            possibleShopLoc: {},
         };
         console.log("this.state in map", this.state);
         console.log("this.props in map", this.props);
+    }
+
+    handleSelection(propsFromChild) {
+        console.log("propsFromChild", propsFromChild);
+        this.setState({
+            possibleShopLoc: propsFromChild,
+        });
+        this.setState((prevState) => ({
+            markers: [...prevState.markers, propsFromChild],
+        }));
     }
 
     onMarkerClick(props, marker, e) {
@@ -60,22 +59,35 @@ export class MapContainer extends React.Component {
         return (
             <React.Fragment>
                 <CurrentLocation
+                    newCenter={
+                        this.state.possibleShopLoc.latLng && {
+                            lat: this.state.possibleShopLoc.latLng.lat,
+                            lng: this.state.possibleShopLoc.latLng.lng,
+                        }
+                    }
                     className="map"
+                    // center={
+                    //     this.state.possibleShopLoc.latLng && {
+                    //         lat: this.state.possibleShopLoc.latLng.lat,
+                    //         lng: this.state.possibleShopLoc.latLng.lng,
+                    //     }
+                    // }
                     centerAroundCurrentLocation
                     google={this.props.google}
+                    // center={{ lat: 20.9640941, lng: 105.8261883 }}
                 >
                     {this.state.markers &&
                         this.state.markers.map((mark) => (
                             <Marker
-                                key={mark.name}
+                                key={mark.address + " " + mark.latLng}
                                 onClick={(props, marker, e) =>
                                     this.onMarkerClick(props, marker, e)
                                 }
                                 position={{
-                                    lat: mark.position.lat,
-                                    lng: mark.position.lng,
+                                    lat: mark.latLng.lat,
+                                    lng: mark.latLng.lng,
                                 }}
-                                name={mark.name}
+                                name={mark.address}
                             />
                         ))}
                     <InfoWindow
@@ -89,11 +101,18 @@ export class MapContainer extends React.Component {
                     </InfoWindow>
                 </CurrentLocation>
                 <AddLocation getNewLoc={(coord) => this.getNewLoc(coord)} />
+                <div className="auto-complete">
+                    <LocationSearchInput
+                        onSelection={(propsFromChild) =>
+                            this.handleSelection(propsFromChild)
+                        }
+                    />
+                </div>
             </React.Fragment>
         );
     }
 }
 
 export default GoogleApiWrapper({
-    apiKey: secrets.GOOGLEMAPS_API_KEY,
+    apiKey: secrets.GOOGLEMAPS_API_KEY_2,
 })(MapContainer);

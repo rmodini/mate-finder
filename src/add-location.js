@@ -14,7 +14,7 @@ export default class AddLocation extends React.Component {
     }
     submitNewLoc() {
         this.props.getNewLoc({
-            position: { lat: 52.5218, lng: 13.4018 },
+            latLng: { lat: 52.5218, lng: 13.4018 },
             name: this.state.submitBtn,
         });
         console.log("this submit", this.state);
