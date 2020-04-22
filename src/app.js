@@ -8,35 +8,7 @@ export default class App extends React.Component {
         super();
         this.state = {};
     }
-    componentDidMount() {
-        // axios
-        //     .get("/user")
-        //     .then((result) => {
-        //         // console.log("result from axios get user", result);
-        //         this.setState({
-        //             id: result.data.id,
-        //             first: result.data.first,
-        //             last: result.data.last,
-        //             imgUrl: result.data.img_url,
-        //             bio: result.data.bio,
-        //             // add bio etc
-        //         });
-        //         // console.log("this.state", this.state);
-        //         let profPic = document.getElementsByClassName("profile-pic");
-        //         for (let i = 0; i < profPic.length; i++) {
-        //             profPic[i].addEventListener("error", () => {
-        //                 console.log("eror on img");
-        //                 profPic[i].setAttribute(
-        //                     "src",
-        //                     "/images/default_banana.gif"
-        //                 );
-        //             });
-        //         }
-        //     })
-        //     .catch((e) => {
-        //         console.log("error in axios get user", e);
-        //     });
-    }
+    componentDidMount() {}
 
     // in react, siblings cant share data (only through they parent)
     render() {
@@ -62,6 +34,7 @@ export default class App extends React.Component {
                     {/* use render instead of component to pass it data */}
                     <div className="content">
                         <Route path="/" component={MapContainer} />
+
                         {/* <Route
                             exact
                             path="/prof-initialroute"
