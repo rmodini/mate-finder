@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import MapContainer from "./map";
+import PossibleLocations from "./possible-locations";
+import Reports from "./reports";
 
 export default class App extends React.Component {
     constructor() {
@@ -33,33 +35,13 @@ export default class App extends React.Component {
                         (that we we use .json at the end on the express) */}
                     {/* use render instead of component to pass it data */}
                     <div className="content">
-                        <Route path="/" component={MapContainer} />
-
-                        {/* <Route
-                            exact
-                            path="/prof-initialroute"
-                            render={() => (
-                                <Profile
-                                    first={this.state.first}
-                                    last={this.state.last}
-                                    imgUrl={this.state.imgUrl}
-                                    bio={this.state.bio}
-                                    setBio={this.setBio}
-                                />
-                            )}
-                        />
+                        <Route exact path="/" component={MapContainer} />
                         <Route
-                            path="/user/:id"
-                            render={(props) => (
-                                <OtherProfile
-                                    key={props.match.url}
-                                    match={props.match}
-                                    history={props.history}
-                                />
-                            )}
+                            exact
+                            path="/possible-locs"
+                            component={PossibleLocations}
                         />
-                        <Route path="/find/users" component={FindPeople} />
-                        <Route exact path="/chat" component={Chat} /> */}
+                        <Route exact path="/reports" component={Reports} />
                     </div>
                 </BrowserRouter>
             </React.Fragment>

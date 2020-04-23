@@ -46,7 +46,8 @@ export default class LocationSearchInput extends React.Component {
                 }) => (
                     <div>
                         <strong>
-                            Insert an address and look if there is mate nearby!
+                            Explore the map or insert an address to look if
+                            there is mate nearby!
                         </strong>
                         <input
                             name="result-input"
@@ -83,12 +84,6 @@ export default class LocationSearchInput extends React.Component {
                                 );
                             })}
                         </div>
-                        {suggestions.length == 0 && (
-                            <div>
-                                <p>Address selected:</p>{" "}
-                                <p>{this.state.address}</p>
-                            </div>
-                        )}
                     </div>
                 )}
             </PlacesAutocomplete>

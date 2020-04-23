@@ -1,0 +1,6 @@
+CREATE TABLE reports(
+    id SERIAL PRIMARY KEY,
+    text VARCHAR(255) NOT NULL CHECK(text != ''),
+    contact VARCHAR(255),
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

@@ -1,14 +1,30 @@
-/* * {
-    background-color: #969696;
-} */
-.add-loc {
+body {
+}
+.add-new-loc-autocomplete {
     position: absolute;
-    top: 70%;
+    top: 80vh;
 }
 .auto-complete {
     position: absolute;
-    top: 90%;
+    top: 70vh;
 }
-/* .map {
-    border: #969696;
-} */
+.map-container {
+    height: 65vh;
+    width: 100vw;
+}
+.submissions {
+    position: absolute;
+    top: 80vh;
+}
+.modal {
+    background-color: blueviolet;
+}
+.report-btn {
+    position: absolute;
+    bottom: 0;
+    right: 2vw;
+}
+.reportText {
+    width: 80vw;
+    height: 30vh;
+}

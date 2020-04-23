@@ -1,9 +1,12 @@
 import React from "react";
 import secrets from "../secrets";
+import axios from "axios";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import CurrentLocation from "./current-location";
 import AddLocation from "./add-location";
 import LocationSearchInput from "./autocomplete";
+import LocationSearchInputToAddNewLoc from "./autocomplete-to-add";
+import ReportModal from "./report-modal";
 
 export class MapContainer extends React.Component {
     constructor(props) {
@@ -12,14 +15,22 @@ export class MapContainer extends React.Component {
             showingInfoWindow: false, //Hides or the shows the infoWindow
             activeMarker: {}, //Shows the active marker upon click
             selectedPlace: {}, //Shows the infoWindow to the selected place upon a marker
-            markers: [
-                { address: "alex", latLng: { lat: 52.522, lng: 13.4021 } },
-                { address: "near alex", latLng: { lat: 52.523, lng: 13.4026 } },
-            ],
+            markers: [],
             possibleShopLoc: {},
+            showReportInput: false,
         };
-        console.log("this.state in map", this.state);
-        console.log("this.props in map", this.props);
+    }
+
+    componentDidMount() {
+        axios
+            .get("/locations")
+            .then((result) => {
+                console.log("result from /locations", result);
+                this.setState({ markers: result.data });
+            })
+            .catch((e) => {
+                console.log("error in /locations", e);
+            });
     }
 
     handleSelection(propsFromChild) {
@@ -27,9 +38,9 @@ export class MapContainer extends React.Component {
         this.setState({
             possibleShopLoc: propsFromChild,
         });
-        this.setState((prevState) => ({
-            markers: [...prevState.markers, propsFromChild],
-        }));
+        // this.setState((prevState) => ({
+        //     markers: [...prevState.markers, propsFromChild],
+        // }));
     }
 
     onMarkerClick(props, marker, e) {
@@ -55,58 +66,100 @@ export class MapContainer extends React.Component {
         console.log("state on map after clik, coord:", coord);
         console.log("this.state on map", this.state);
     }
+    handleClick() {
+        this.setState({ showReportInput: !this.state.showReportInput });
+    }
     render() {
         return (
             <React.Fragment>
-                <CurrentLocation
-                    newCenter={
-                        this.state.possibleShopLoc.latLng && {
-                            lat: this.state.possibleShopLoc.latLng.lat,
-                            lng: this.state.possibleShopLoc.latLng.lng,
+                <div className="map-container">
+                    <CurrentLocation
+                        newCenter={
+                            this.state.possibleShopLoc.latLng && {
+                                lat: this.state.possibleShopLoc.latLng.lat,
+                                lng: this.state.possibleShopLoc.latLng.lng,
+                            }
                         }
-                    }
-                    className="map"
-                    // center={
-                    //     this.state.possibleShopLoc.latLng && {
-                    //         lat: this.state.possibleShopLoc.latLng.lat,
-                    //         lng: this.state.possibleShopLoc.latLng.lng,
-                    //     }
-                    // }
-                    centerAroundCurrentLocation
-                    google={this.props.google}
-                    // center={{ lat: 20.9640941, lng: 105.8261883 }}
-                >
-                    {this.state.markers &&
-                        this.state.markers.map((mark) => (
-                            <Marker
-                                key={mark.address + " " + mark.latLng}
-                                onClick={(props, marker, e) =>
-                                    this.onMarkerClick(props, marker, e)
-                                }
-                                position={{
-                                    lat: mark.latLng.lat,
-                                    lng: mark.latLng.lng,
-                                }}
-                                name={mark.address}
-                            />
-                        ))}
-                    <InfoWindow
-                        marker={this.state.activeMarker}
-                        visible={this.state.showingInfoWindow}
-                        onClose={() => this.onClose()}
+                        className="map"
+                        centerAroundCurrentLocation
+                        google={this.props.google}
                     >
-                        <div>
-                            <h4>{this.state.selectedPlace.name}</h4>
-                        </div>
-                    </InfoWindow>
-                </CurrentLocation>
-                <AddLocation getNewLoc={(coord) => this.getNewLoc(coord)} />
+                        {this.state.markers &&
+                            this.state.markers.map((mark) => (
+                                <Marker
+                                    key={mark.id}
+                                    onClick={(props, marker, e) =>
+                                        this.onMarkerClick(props, marker, e)
+                                    }
+                                    position={{
+                                        lat: mark.lat,
+                                        lng: mark.lng,
+                                    }}
+                                    name={mark.address}
+                                    other={mark}
+                                />
+                            ))}
+                        <InfoWindow
+                            marker={this.state.activeMarker}
+                            visible={this.state.showingInfoWindow}
+                            onClose={() => this.onClose()}
+                        >
+                            <div>
+                                <h4>{this.state.selectedPlace.name}</h4>
+
+                                {this.state.selectedPlace.other && (
+                                    <div>
+                                        <p>
+                                            {
+                                                this.state.selectedPlace.other
+                                                    .name
+                                            }
+                                        </p>
+                                        <p>
+                                            {
+                                                this.state.selectedPlace.other
+                                                    .market_type
+                                            }
+                                        </p>
+                                        <p>
+                                            {
+                                                this.state.selectedPlace.other
+                                                    .mate_var
+                                            }
+                                        </p>
+                                        <p>
+                                            {
+                                                this.state.selectedPlace.other
+                                                    .descr
+                                            }
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        </InfoWindow>
+                    </CurrentLocation>
+                </div>
                 <div className="auto-complete">
                     <LocationSearchInput
                         onSelection={(propsFromChild) =>
                             this.handleSelection(propsFromChild)
                         }
                     />
+                </div>
+                {this.state.showReportInput == false && (
+                    <div className="add-new-loc-autocomplete">
+                        <LocationSearchInputToAddNewLoc
+                            onSelection={(propsFromChild) =>
+                                this.handleSelection(propsFromChild)
+                            }
+                        />
+                    </div>
+                )}
+                <p className="report-btn" onClick={() => this.handleClick()}>
+                    Report something / Contact
+                </p>
+                <div className="report">
+                    {this.state.showReportInput && <ReportModal />}
                 </div>
             </React.Fragment>
         );
