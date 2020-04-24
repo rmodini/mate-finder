@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const db = require("./utils/db");
 const compression = require("compression");
+const basicAuth = require("basic-auth");
 
 app.use(compression());
 
@@ -19,6 +20,25 @@ if (process.env.NODE_ENV != "production") {
 app.use(express.json());
 
 app.use(express.static("./public"));
+
+// app.use((req, res, next) => {
+//     // deny framing this page:
+//     res.set("x-frame-options", "DENY");
+//     next();
+// });
+
+const auth = function (req, res, next) {
+    const creds = basicAuth(req);
+    if (!creds || creds.name != "disco" || creds.pass != "duck") {
+        res.setHeader(
+            "WWW-Authenticate",
+            'Basic realm="Enter your credentials to see this stuff."'
+        );
+        res.sendStatus(401);
+    } else {
+        next();
+    }
+};
 
 app.get("/locations", (req, res) => {
     db.getLocations()
@@ -51,7 +71,11 @@ app.post("/add-new-loc", (req, res) => {
         });
 });
 
-app.get("/possible-locs-adm", (req, res) => {
+app.get("/possible-locs", auth, (req, res, next) => {
+    next();
+});
+
+app.get("/possible-locs-adm", auth, (req, res) => {
     db.getPossibleLocs()
         .then((result) => {
             console.log("res from get poss locs", result.rows);
@@ -62,7 +86,7 @@ app.get("/possible-locs-adm", (req, res) => {
         });
 });
 
-app.post("/accept", (req, res) => {
+app.post("/accept", auth, (req, res) => {
     console.log("req.body.id", req.body.id);
     db.approveLoc(req.body.id)
         .then((result) => {
@@ -74,7 +98,7 @@ app.post("/accept", (req, res) => {
         });
 });
 
-app.post("/decline", (req, res) => {
+app.post("/decline", auth, (req, res) => {
     console.log("req.body.id", req.body.id);
     db.declineLoc(req.body.id)
         .then((result) => {
@@ -98,7 +122,12 @@ app.post("/report", (req, res) => {
         });
 });
 
-app.get("/reports-adm", (req, res) => {
+app.get("/reports", auth, (req, res, next) => {
+    next();
+});
+
+app.get("/reports-adm", auth, (req, res) => {
+    console.log(req);
     db.getReports()
         .then((result) => {
             res.json(result.rows);
@@ -108,7 +137,11 @@ app.get("/reports-adm", (req, res) => {
         });
 });
 
-app.post("/reports-adm", (req, res) => {
+app.post("/possible-locs", auth, (req, res, next) => {
+    next();
+});
+
+app.post("/reports-adm", auth, (req, res) => {
     db.deleteReports()
         .then((result) => {
             res.json(result.rows);

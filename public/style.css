@@ -16,6 +16,10 @@ body {
     position: absolute;
     top: 80vh;
 }
+.no-submissions {
+    position: absolute;
+    top: 80vh;
+}
 .modal {
     background-color: blueviolet;
 }
@@ -27,4 +31,8 @@ body {
 .reportText {
     width: 80vw;
     height: 30vh;
+}
+.report-input {
+    width: 80vw;
+    height: 10vh;
 }

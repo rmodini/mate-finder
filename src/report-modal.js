@@ -14,8 +14,6 @@ export default class ReportModal extends React.Component {
     }
 
     submit() {
-        console.log("this.state", this.state);
-
         axios
             .post("/report", {
                 text: this.state.reportText,
@@ -47,14 +45,17 @@ export default class ReportModal extends React.Component {
                     onChange={(e) => this.handleChange(e)}
                     name="contact"
                     autoComplete="off"
-                    defaultValue="Email or contact info (optional)"
+                    placeholder="Email or contact info (optional)"
                 ></input>
+                <br></br>
                 <input
+                    className="report-input"
                     onChange={(e) => this.handleChange(e)}
                     name="reportText"
                     autoComplete="off"
-                    defaultValue="Insert text here.."
+                    placeholder="Insert text here.."
                 ></input>
+                <br></br>
                 <button onClick={() => this.submit()}>Send report</button>
             </div>
         );

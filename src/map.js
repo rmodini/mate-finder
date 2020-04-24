@@ -59,13 +59,13 @@ export class MapContainer extends React.Component {
             });
         }
     }
-    getNewLoc(coord) {
-        this.setState((prevState) => ({
-            markers: [...prevState.markers, coord],
-        }));
-        console.log("state on map after clik, coord:", coord);
-        console.log("this.state on map", this.state);
-    }
+    // getNewLoc(coord) {
+    //     this.setState((prevState) => ({
+    //         markers: [...prevState.markers, coord],
+    //     }));
+    //     console.log("state on map after clik, coord:", coord);
+    //     console.log("this.state on map", this.state);
+    // }
     handleClick() {
         this.setState({ showReportInput: !this.state.showReportInput });
     }
@@ -84,6 +84,15 @@ export class MapContainer extends React.Component {
                         centerAroundCurrentLocation
                         google={this.props.google}
                     >
+                        {this.state.possibleShopLoc.latLng && (
+                            <Marker
+                                position={{
+                                    lat: this.state.possibleShopLoc.latLng.lat,
+                                    lng: this.state.possibleShopLoc.latLng.lng,
+                                }}
+                                name={this.state.possibleShopLoc.name}
+                            />
+                        )}
                         {this.state.markers &&
                             this.state.markers.map((mark) => (
                                 <Marker

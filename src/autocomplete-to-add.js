@@ -135,12 +135,6 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                         );
                                     })}
                                 </div>
-                                {/* {suggestions.length == 0 && (
-                                    <div>
-                                        <p>Address selected:</p>{" "}
-                                        <p>{this.state.address}</p>
-                                    </div>
-                                )} */}
                                 <label>Name of shop if known</label>
                                 <input
                                     name="name"
@@ -149,11 +143,21 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                 ></input>
                                 <br></br>
                                 <label>Type of market if known</label>
-                                <input
+                                <select
+                                    defaultValue=""
                                     name="marketType"
                                     onChange={(e) => this.handleInputChange(e)}
                                     autoComplete="off"
-                                ></input>
+                                >
+                                    <option></option>
+                                    <option>African market</option>
+                                    <option>Arabic market</option>
+                                    <option>Asian market</option>
+                                    <option>Latinamerican market</option>
+                                    <option>Spanish market</option>
+                                    <option>Café/Restaurant</option>
+                                    <option>Other</option>
+                                </select>
                                 <br></br>
                                 <label>Yerba Mate variety if known</label>
                                 <input

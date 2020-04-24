@@ -13,7 +13,7 @@ export class PossibleLocations extends React.Component {
         axios
             .get("possible-locs-adm")
             .then((result) => {
-                console.log("result from poss locs", result.data);
+                console.log("result from poss locs", result);
                 this.setState(() => ({
                     possibleLocs: result.data,
                 }));
@@ -83,6 +83,12 @@ export class PossibleLocations extends React.Component {
                     className="map"
                     centerAroundCurrentLocation
                     google={this.props.google}
+                    newCenter={
+                        this.state.coord && {
+                            lat: this.state.coord.lat,
+                            lng: this.state.coord.lng,
+                        }
+                    }
                 >
                     <Marker
                         position={
@@ -95,7 +101,9 @@ export class PossibleLocations extends React.Component {
                     />
                 </CurrentLocation>
                 {this.state.possibleLocs.length == 0 && (
-                    <h3>No new submissions to moderate</h3>
+                    <h3 className="no-submissions">
+                        No new submissions to moderate
+                    </h3>
                 )}
                 <div className="submissions">
                     {this.state.possibleLocs.length != 0 &&
