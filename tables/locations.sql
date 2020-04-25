@@ -7,6 +7,7 @@ CREATE TABLE locations(
     market_type VARCHAR(255),
     mate_var VARCHAR(255),
     descr VARCHAR(255),
+    uploader VARCHAR(255),
     approved BOOLEAN DEFAULT false,
     added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

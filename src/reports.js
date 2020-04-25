@@ -10,8 +10,6 @@ export default class Reports extends React.Component {
         axios
             .get("/reports-adm")
             .then((result) => {
-                console.log("res from reports", result);
-
                 this.setState({ reports: result.data });
             })
             .catch((e) => {

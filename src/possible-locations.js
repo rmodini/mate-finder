@@ -13,7 +13,6 @@ export class PossibleLocations extends React.Component {
         axios
             .get("possible-locs-adm")
             .then((result) => {
-                console.log("result from poss locs", result);
                 this.setState(() => ({
                     possibleLocs: result.data,
                 }));
@@ -28,15 +27,12 @@ export class PossibleLocations extends React.Component {
         this.setState({ coord: latLng });
     }
     accept(id) {
-        console.log("id from accept", id);
         axios
             .post("/accept", { id: id })
             .then((res) => {
-                console.log("result from accept", res);
                 axios
                     .get("possible-locs-adm")
                     .then((result) => {
-                        console.log("result from poss locs", result.data);
                         this.setState(() => ({
                             possibleLocs: result.data,
                         }));
@@ -49,15 +45,12 @@ export class PossibleLocations extends React.Component {
             .catch((e) => console.log("error in accept", e));
     }
     decline(id) {
-        console.log("id from decline", id);
         axios
             .post("/decline", { id: id })
             .then((res) => {
-                console.log("result from decline", res);
                 axios
                     .get("possible-locs-adm")
                     .then((result) => {
-                        console.log("result from poss locs", result.data);
                         this.setState(() => ({
                             possibleLocs: result.data,
                         }));
@@ -73,33 +66,35 @@ export class PossibleLocations extends React.Component {
         return (
             <div>
                 <h2>Submissions to moderate</h2>
-                <CurrentLocation
-                    // newCenter={
-                    //     this.state.coord && {
-                    //         lat: this.state.coord.lat,
-                    //         lng: this.state.coord.lng,
-                    //     }
-                    // }
-                    className="map"
-                    centerAroundCurrentLocation
-                    google={this.props.google}
-                    newCenter={
-                        this.state.coord && {
-                            lat: this.state.coord.lat,
-                            lng: this.state.coord.lng,
-                        }
-                    }
-                >
-                    <Marker
-                        position={
+                <div className="map-container">
+                    <CurrentLocation
+                        // newCenter={
+                        //     this.state.coord && {
+                        //         lat: this.state.coord.lat,
+                        //         lng: this.state.coord.lng,
+                        //     }
+                        // }
+                        className="map"
+                        centerAroundCurrentLocation
+                        google={this.props.google}
+                        newCenter={
                             this.state.coord && {
                                 lat: this.state.coord.lat,
                                 lng: this.state.coord.lng,
                             }
                         }
-                        name={"Selected submission"}
-                    />
-                </CurrentLocation>
+                    >
+                        <Marker
+                            position={
+                                this.state.coord && {
+                                    lat: this.state.coord.lat,
+                                    lng: this.state.coord.lng,
+                                }
+                            }
+                            name={"Selected submission"}
+                        />
+                    </CurrentLocation>
+                </div>
                 {this.state.possibleLocs.length == 0 && (
                     <h3 className="no-submissions">
                         No new submissions to moderate
@@ -114,6 +109,7 @@ export class PossibleLocations extends React.Component {
                                 <div>Market Type: {loc.market_type}</div>
                                 <div>Yerba Mate Variety: {loc.mate_var}</div>
                                 <div>Description: {loc.descr}</div>
+                                <div>Uploader: {loc.uploader}</div>
                                 <button onClick={() => this.accept(loc.id)}>
                                     Accept
                                 </button>{" "}

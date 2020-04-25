@@ -1,38 +1,94 @@
 body {
+    font-family: sans-serif;
+    height: 100%;
+    width: 95%;
+    position: relative;
+    background-color: #f7f7d5;
+    color: #2c2c2c;
 }
-.add-new-loc-autocomplete {
-    position: absolute;
-    top: 80vh;
+.logo-name {
+    text-decoration: none;
+    width: fit-content;
 }
-.auto-complete {
-    position: absolute;
-    top: 70vh;
+.logo-name:visited {
+    color: #2c2c2c;
+    text-decoration: none;
+}
+.name {
+}
+.lang-flag {
+    height: 20px;
+    float: right;
+    position: relative;
+    bottom: 40px;
+}
+.lang-flag:hover {
+    cursor: pointer;
+    border: 2px solid black;
 }
 .map-container {
-    height: 65vh;
-    width: 100vw;
+    display: block;
+    height: 60vh;
+    width: 95vw;
+    border: 2px solid black;
+    margin-bottom: 5px;
+}
+.location-search-input {
+    margin: 5px 0;
+    width: 40%;
+}
+.suggestions {
+    border: 2px solid black;
+}
+.add-loc-form {
+    margin-left: 10px;
+    padding: 5px;
+}
+.add-loc-form input {
+    width: 40%;
+}
+.add-loc-form select {
+    width: 40%;
+}
+.add-loc-btn {
+    font-weight: bold;
+}
+.add-loc-btn:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.add-new-loc-autocomplete {
+    /* position: absolute;
+    top: 80vh; */
+}
+.auto-complete {
+    /* position: absolute;
+    top: 70vh; */
 }
 .submissions {
-    position: absolute;
-    top: 80vh;
+    /* position: absolute;
+    top: 70vh; */
 }
 .no-submissions {
-    position: absolute;
-    top: 80vh;
-}
-.modal {
-    background-color: blueviolet;
+    /* position: absolute;
+    top: 80vh; */
 }
 .report-btn {
-    position: absolute;
-    bottom: 0;
-    right: 2vw;
+    float: right;
+    /* clear: both; */
 }
-.reportText {
-    width: 80vw;
-    height: 30vh;
+.report-btn:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.report-modal {
+    display: block;
+    padding: 5px;
+}
+.report-contact {
+    width: 40%;
 }
 .report-input {
-    width: 80vw;
+    width: 70%;
     height: 10vh;
 }

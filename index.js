@@ -51,7 +51,6 @@ app.get("/locations", (req, res) => {
 });
 
 app.post("/add-new-loc", (req, res) => {
-    console.log("req", req.body);
     db.addPossibleLoc(
         req.body.address,
         req.body.latLng.lat,
@@ -59,7 +58,8 @@ app.post("/add-new-loc", (req, res) => {
         req.body.name,
         req.body.marketType,
         req.body.mateVar,
-        req.body.desc
+        req.body.desc,
+        req.body.uploader
     )
         .then((result) => {
             result.success = true;
@@ -78,7 +78,6 @@ app.get("/possible-locs", auth, (req, res, next) => {
 app.get("/possible-locs-adm", auth, (req, res) => {
     db.getPossibleLocs()
         .then((result) => {
-            console.log("res from get poss locs", result.rows);
             res.json(result.rows);
         })
         .catch((e) => {
@@ -87,10 +86,8 @@ app.get("/possible-locs-adm", auth, (req, res) => {
 });
 
 app.post("/accept", auth, (req, res) => {
-    console.log("req.body.id", req.body.id);
     db.approveLoc(req.body.id)
         .then((result) => {
-            console.log("res from approve", result.rows);
             res.json(result.rows);
         })
         .catch((e) => {
@@ -99,10 +96,8 @@ app.post("/accept", auth, (req, res) => {
 });
 
 app.post("/decline", auth, (req, res) => {
-    console.log("req.body.id", req.body.id);
     db.declineLoc(req.body.id)
         .then((result) => {
-            console.log("res from decline", result.rows);
             res.json(result.rows);
         })
         .catch((e) => {
@@ -111,7 +106,6 @@ app.post("/decline", auth, (req, res) => {
 });
 
 app.post("/report", (req, res) => {
-    console.log(req.body);
     db.insertReport(req.body.text, req.body.contact)
         .then((result) => {
             result.success = true;
@@ -127,7 +121,6 @@ app.get("/reports", auth, (req, res, next) => {
 });
 
 app.get("/reports-adm", auth, (req, res) => {
-    console.log(req);
     db.getReports()
         .then((result) => {
             res.json(result.rows);

@@ -1,0 +1,42 @@
+{
+    "report": "Report/Contact",
+    "added_at": "Uploaded on ",
+    "added_by": "Uploaded by ",
+    "search": {
+        "text": "Explore the map or insert an address to look if there is yerba mate nearby!",
+        "inputText": "Search an address"
+    },
+    "addNewLoc": {
+        "text1": "You know a place where yerba mate is sold? Please add it to the map by ",
+        "textStrong": "clicking here!",
+        "text2": " This is a community driven website and we need your help!",
+        "form": {
+            "title": "Add a new mate location!",
+            "address": "Insert an exact address...",
+            "name": "Name of shop (if know)",
+            "market": {
+                "type": "Type of market (if known)",
+                "af": "African market",
+                "ar": "Arabic market",
+                "as": "Asian market",
+                "la": "Latinamerican market",
+                "sp": "Spanish market",
+                "ca": "Café/Restaurant",
+                "ot": "Other"
+            },
+            "var": "Yerba Mate variety (if known)",
+            "desc": "Short description (optional)",
+            "uploader": "Your name (optional)",
+            "submit": "Submit",
+            "error": "Please insert a correct address.",
+            "success": "Thank you! We will verify your submission and add it shortly!"
+        }
+    },
+    "reportModal": {
+        "text": "Do you want to report a bug, problem, false location or something else? Please tell us here:",
+        "contact": "Email or contact info (optional)",
+        "inputText": "Insert report or comment here...",
+        "submit": "Send report",
+        "success": "Thank you for your report! We will take a look at it shortly."
+    }
+}

@@ -8,12 +8,10 @@ export default class LocationSearchInput extends React.Component {
     constructor(props) {
         super(props);
         this.state = { address: "", latLng: {} };
-        console.log("this.state in input", this.state, "pors", this.props);
     }
 
     handleChange(address) {
         this.setState({ address });
-        console.log("this.state in input", this.state, "pors", this.props);
     }
 
     handleSelect(address) {
@@ -45,44 +43,48 @@ export default class LocationSearchInput extends React.Component {
                     loading,
                 }) => (
                     <div>
-                        <strong>
-                            Explore the map or insert an address to look if
-                            there is mate nearby!
-                        </strong>
-                        <input
-                            name="result-input"
-                            {...getInputProps({
-                                placeholder: "Search Places ...",
-                                className: "location-search-input",
-                            })}
-                        />
-                        <div className="autocomplete-dropdown-container">
-                            {loading && <div>Loading...</div>}
-                            {suggestions.map((suggestion) => {
-                                const className = suggestion.active
-                                    ? "suggestion-item--active"
-                                    : "suggestion-item";
-                                // inline style for demonstration purpose
-                                const style = suggestion.active
-                                    ? {
-                                          backgroundColor: "#fafafa",
-                                          cursor: "pointer",
-                                      }
-                                    : {
-                                          backgroundColor: "#ffffff",
-                                          cursor: "pointer",
-                                      };
-                                return (
-                                    <div
-                                        {...getSuggestionItemProps(suggestion, {
-                                            className,
-                                            style,
-                                        })}
-                                    >
-                                        <span>{suggestion.description}</span>
-                                    </div>
-                                );
-                            })}
+                        <strong>{this.props.search.text}</strong>
+                        <div>
+                            <input
+                                name="result-input"
+                                {...getInputProps({
+                                    placeholder: this.props.search.inputText,
+                                    className: "location-search-input",
+                                })}
+                            />
+                            <div className="autocomplete-dropdown-container">
+                                {loading && <div>Loading...</div>}
+                                {suggestions.map((suggestion) => {
+                                    const className = suggestion.active
+                                        ? "suggestion-item--active"
+                                        : "suggestion-item";
+                                    // inline style for demonstration purpose
+                                    const style = suggestion.active
+                                        ? {
+                                              backgroundColor: "#e0e0e0",
+                                              cursor: "pointer",
+                                          }
+                                        : {
+                                              backgroundColor: "#ffffff",
+                                              cursor: "pointer",
+                                          };
+                                    return (
+                                        <div
+                                            {...getSuggestionItemProps(
+                                                suggestion,
+                                                {
+                                                    className,
+                                                    style,
+                                                }
+                                            )}
+                                        >
+                                            <span>
+                                                {suggestion.description}
+                                            </span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
                 )}

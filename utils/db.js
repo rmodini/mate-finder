@@ -19,7 +19,8 @@ module.exports.addPossibleLoc = (
     name,
     marketType,
     mateVar,
-    desc
+    desc,
+    uploader
 ) => {
     const q = `
     INSERT INTO locations (address,
@@ -28,10 +29,20 @@ module.exports.addPossibleLoc = (
     name,
     market_type,
     mate_var,
-    descr)
-    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    descr,
+    uploader)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     ;`;
-    const params = [address, lat, lng, name, marketType, mateVar, desc];
+    const params = [
+        address,
+        lat,
+        lng,
+        name,
+        marketType,
+        mateVar,
+        desc,
+        uploader,
+    ];
     return db.query(q, params);
 };
 

@@ -3,38 +3,46 @@ import secrets from "../secrets";
 import axios from "axios";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import CurrentLocation from "./current-location";
-import AddLocation from "./add-location";
 import LocationSearchInput from "./autocomplete";
 import LocationSearchInputToAddNewLoc from "./autocomplete-to-add";
 import ReportModal from "./report-modal";
+import en from "../utils/lang/en.json";
+import es from "../utils/lang/es.json";
 
 export class MapContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showingInfoWindow: false, //Hides or the shows the infoWindow
-            activeMarker: {}, //Shows the active marker upon click
-            selectedPlace: {}, //Shows the infoWindow to the selected place upon a marker
+            showingInfoWindow: false,
+            activeMarker: {},
+            selectedPlace: {},
             markers: [],
             possibleShopLoc: {},
             showReportInput: false,
+            lang: {
+                en: en,
+                es: es,
+            },
+            currentLang: "en",
+            flag: "./imgs/es.png",
         };
     }
-
     componentDidMount() {
         axios
             .get("/locations")
             .then((result) => {
-                console.log("result from /locations", result);
                 this.setState({ markers: result.data });
             })
             .catch((e) => {
                 console.log("error in /locations", e);
             });
     }
-
+    toggleLang() {
+        this.state.currentLang == "en"
+            ? this.setState({ currentLang: "es", flag: "./imgs/en.png" })
+            : this.setState({ currentLang: "en", flag: "./imgs/es.png" });
+    }
     handleSelection(propsFromChild) {
-        console.log("propsFromChild", propsFromChild);
         this.setState({
             possibleShopLoc: propsFromChild,
         });
@@ -42,9 +50,7 @@ export class MapContainer extends React.Component {
         //     markers: [...prevState.markers, propsFromChild],
         // }));
     }
-
     onMarkerClick(props, marker, e) {
-        console.log("marker clicked", props, marker, e);
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
@@ -59,19 +65,18 @@ export class MapContainer extends React.Component {
             });
         }
     }
-    // getNewLoc(coord) {
-    //     this.setState((prevState) => ({
-    //         markers: [...prevState.markers, coord],
-    //     }));
-    //     console.log("state on map after clik, coord:", coord);
-    //     console.log("this.state on map", this.state);
-    // }
     handleClick() {
         this.setState({ showReportInput: !this.state.showReportInput });
+    }
+    closeModal() {
+        this.setState({ showReportInput: false });
     }
     render() {
         return (
             <React.Fragment>
+                <div onClick={() => this.toggleLang()}>
+                    <img className="lang-flag" src={this.state.flag} />
+                </div>
                 <div className="map-container">
                     <CurrentLocation
                         newCenter={
@@ -106,6 +111,14 @@ export class MapContainer extends React.Component {
                                     }}
                                     name={mark.address}
                                     other={mark}
+                                    icon={{
+                                        url: "./imgs/mate_icon.svg",
+                                        anchor: new google.maps.Point(32, 32),
+                                        scaledSize: new google.maps.Size(
+                                            32,
+                                            32
+                                        ),
+                                    }}
                                 />
                             ))}
                         <InfoWindow
@@ -142,6 +155,45 @@ export class MapContainer extends React.Component {
                                                     .descr
                                             }
                                         </p>
+                                        {this.state.selectedPlace.other
+                                            .uploader && (
+                                            <p>
+                                                {this.state.currentLang == "en"
+                                                    ? this.state.lang.en
+                                                          .added_by
+                                                    : this.state.lang.es
+                                                          .added_by}{" "}
+                                                {
+                                                    this.state.selectedPlace
+                                                        .other.uploader
+                                                }{" "}
+                                                -{" "}
+                                                {new Date(
+                                                    this.state.selectedPlace.other.added_at
+                                                ).toLocaleDateString("en-GB", {
+                                                    day: "numeric",
+                                                    month: "numeric",
+                                                    year: "numeric",
+                                                })}
+                                            </p>
+                                        )}
+                                        {!this.state.selectedPlace.other
+                                            .uploader && (
+                                            <p>
+                                                {this.state.currentLang == "en"
+                                                    ? this.state.lang.en
+                                                          .added_at
+                                                    : this.state.lang.es
+                                                          .added_at}{" "}
+                                                {new Date(
+                                                    this.state.selectedPlace.other.added_at
+                                                ).toLocaleDateString("en-GB", {
+                                                    day: "numeric",
+                                                    month: "numeric",
+                                                    year: "numeric",
+                                                })}
+                                            </p>
+                                        )}
                                     </div>
                                 )}
                             </div>
@@ -150,6 +202,11 @@ export class MapContainer extends React.Component {
                 </div>
                 <div className="auto-complete">
                     <LocationSearchInput
+                        search={
+                            this.state.currentLang == "en"
+                                ? this.state.lang.en.search
+                                : this.state.lang.es.search
+                        }
                         onSelection={(propsFromChild) =>
                             this.handleSelection(propsFromChild)
                         }
@@ -158,6 +215,11 @@ export class MapContainer extends React.Component {
                 {this.state.showReportInput == false && (
                     <div className="add-new-loc-autocomplete">
                         <LocationSearchInputToAddNewLoc
+                            addNewLoc={
+                                this.state.currentLang == "en"
+                                    ? this.state.lang.en.addNewLoc
+                                    : this.state.lang.es.addNewLoc
+                            }
                             onSelection={(propsFromChild) =>
                                 this.handleSelection(propsFromChild)
                             }
@@ -165,10 +227,21 @@ export class MapContainer extends React.Component {
                     </div>
                 )}
                 <p className="report-btn" onClick={() => this.handleClick()}>
-                    Report something / Contact
+                    {this.state.currentLang == "en"
+                        ? this.state.lang.en.report
+                        : this.state.lang.es.report}
                 </p>
-                <div className="report">
-                    {this.state.showReportInput && <ReportModal />}
+                <div className="report-modal">
+                    {this.state.showReportInput && (
+                        <ReportModal
+                            reportModal={
+                                this.state.currentLang == "en"
+                                    ? this.state.lang.en.reportModal
+                                    : this.state.lang.es.reportModal
+                            }
+                            onSubmit={() => this.closeModal()}
+                        />
+                    )}
                 </div>
             </React.Fragment>
         );

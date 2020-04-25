@@ -1,0 +1,42 @@
+{
+    "report": "Reportar/Contacto",
+    "added_at": "Subido el ",
+    "added_by": "Subido por ",
+    "search": {
+        "text": "Explorá el mapa o busca una dirección para encontrar yerba cerca tuyo!!",
+        "inputText": "Busca una dirección..."
+    },
+    "addNewLoc": {
+        "text1": "Conocés un lugar donde venden yerba y no está en el mapa? Agregalo haciendo ",
+        "textStrong": "click acá!",
+        "text2": " Esta web depende de gente como vos que aporte lugares, ayudanos a que a nadie nunca le falte un mate!",
+        "form": {
+            "title": "Agrega un nuevo punto de venta de yerba!",
+            "address": "Poné una dirección exacta...",
+            "name": "Nombre del negocio (si se sabe)",
+            "market": {
+                "type": "Tipo de mercado (si se sabe)",
+                "af": "Africano",
+                "ar": "Árabe",
+                "as": "Asiático",
+                "la": "Latinoamericano",
+                "sp": "Español",
+                "ca": "Café/Restaurante",
+                "ot": "Otro"
+            },
+            "var": "Variedad de yerba (si se sabe)",
+            "desc": "Breve descripción (opcional)",
+            "uploader": "Tu nombre (opcional)",
+            "submit": "Enviar",
+            "error": "La dirección no es válida.",
+            "success": "Gracias! Vamos a verificar tu aporte y agregarlo al mapa pronto!"
+        }
+    },
+    "reportModal": {
+        "text": "Querés reportar un problema, bug, dirección falsa? Por favor avisanos por acá:",
+        "contact": "Email o medio de contacto (opcional)",
+        "inputText": "Tu reporte o comentario...",
+        "submit": "Enviar",
+        "success": "Gracias por tu reporte! Lo veremos pronto."
+    }
+}

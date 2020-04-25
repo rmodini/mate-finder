@@ -22,9 +22,8 @@ export default class ReportModal extends React.Component {
             .then((response) => {
                 if (response.data.success) {
                     this.setState({ success: true });
-                    alert(
-                        "Thank you for your report! We will look at it shortly."
-                    );
+                    alert(this.props.reportModal.success);
+                    this.props.onSubmit();
                 } else {
                     console.log("error reporting");
                 }
@@ -36,16 +35,14 @@ export default class ReportModal extends React.Component {
 
     render() {
         return (
-            <div className="report-modal">
-                <h3>
-                    Do you want to report a bug, problem, false location or
-                    something else? Please tell us here:
-                </h3>
+            <div>
+                <h3>{this.props.reportModal.text}</h3>
                 <input
+                    className="report-contact"
                     onChange={(e) => this.handleChange(e)}
                     name="contact"
                     autoComplete="off"
-                    placeholder="Email or contact info (optional)"
+                    placeholder={this.props.reportModal.contact}
                 ></input>
                 <br></br>
                 <input
@@ -53,10 +50,12 @@ export default class ReportModal extends React.Component {
                     onChange={(e) => this.handleChange(e)}
                     name="reportText"
                     autoComplete="off"
-                    placeholder="Insert text here.."
+                    placeholder={this.props.reportModal.inputText}
                 ></input>
                 <br></br>
-                <button onClick={() => this.submit()}>Send report</button>
+                <button onClick={() => this.submit()}>
+                    {this.props.reportModal.submit}
+                </button>
             </div>
         );
     }

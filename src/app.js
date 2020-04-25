@@ -11,29 +11,20 @@ export default class App extends React.Component {
         this.state = {};
     }
     componentDidMount() {}
-
-    // in react, siblings cant share data (only through they parent)
     render() {
         return (
             <React.Fragment>
                 <BrowserRouter>
                     <div className="header">
-                        <Link className="logo-name" to="/">
-                            <h3 className="name">Mate Finder</h3>
-                        </Link>
-                        <div className="blank"></div>
-                        <div id="nav-bar">
-                            {/* <Link className="button" to="/find/users">
-                                Find People
+                        <h3 className="name">
+                            <Link className="logo-name" to="/">
+                                Mate Finder
                             </Link>
-                            <Link className="button" to="/chat">
-                                Shoutbox
-                            </Link> */}
-                        </div>
+                        </h3>
+
+                        <div className="blank"></div>
+                        <div id="nav-bar"></div>
                     </div>
-                    {/* any patter in the path in react router should never match a patch in the express router
-                        (that we we use .json at the end on the express) */}
-                    {/* use render instead of component to pass it data */}
                     <div className="content">
                         <Route exact path="/" component={MapContainer} />
                         <Route

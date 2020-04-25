@@ -12,8 +12,6 @@ const mapStyles = {
 export class CurrentLocation extends React.Component {
     constructor(props) {
         super(props);
-        console.log("props in curr loc", props);
-
         const { lat, lng } = this.props.initialCenter;
         this.state = {
             currentLocation: {

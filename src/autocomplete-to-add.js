@@ -9,12 +9,10 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
     constructor(props) {
         super(props);
         this.state = { address: "", latLng: {}, showForm: false };
-        console.log("this.state in input", this.state, "pors", this.props);
     }
 
     handleChange(address) {
         this.setState({ address });
-        console.log("this.state in input", this.state, "pors", this.props);
     }
 
     handleInputChange({ target }) {
@@ -24,7 +22,6 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
     }
 
     submit() {
-        console.log("this.state submit", this.state);
         axios
             .post("/add-new-loc", {
                 address: this.state.address,
@@ -33,25 +30,21 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                 marketType: this.state.marketType,
                 mateVar: this.state.mateVar,
                 desc: this.state.desc,
+                uploader: this.state.uploader,
             })
             .then((result) => {
-                console.log("result from add new loc", result);
                 if (result.data.error) {
-                    alert("Please insert a correct address");
-                } else
-                    alert(
-                        "Thank you! We will verify your submission and add it shortly!"
-                    );
+                    alert(this.props.addNewLoc.form.error);
+                } else alert(this.props.addNewLoc.form.success);
             })
             .catch((e) => {
                 console.log("error in add new loc", e);
-                alert("Please insert a correct address");
+                alert(this.props.addNewLoc.form.error);
             });
     }
 
     handleClick() {
         this.setState({ showForm: !this.state.showForm });
-        console.log("click", this.state);
     }
 
     handleSelect(address) {
@@ -84,21 +77,23 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                 }) => (
                     <div>
                         <p>
-                            You know a place where they sell mate? Please add it
-                            to the map by{" "}
-                            <strong onClick={() => this.handleClick()}>
-                                clicking here!
-                            </strong>{" "}
-                            This is a community driven website and we need your
-                            help!
+                            {this.props.addNewLoc.text1}
+                            <strong
+                                className="add-loc-btn"
+                                onClick={() => this.handleClick()}
+                            >
+                                {this.props.addNewLoc.textStrong}
+                            </strong>
+                            {this.props.addNewLoc.text2}
                         </p>{" "}
                         {this.state.showForm && (
-                            <div>
-                                <label>Address</label>
+                            <div className="add-loc-form">
+                                <div>{this.props.addNewLoc.form.title}</div>
                                 <input
                                     name="result-input"
                                     {...getInputProps({
-                                        placeholder: "Search Places ...",
+                                        placeholder: this.props.addNewLoc.form
+                                            .address,
                                         className: "location-search-input",
                                     })}
                                 />
@@ -111,7 +106,7 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                         // inline style for demonstration purpose
                                         const style = suggestion.active
                                             ? {
-                                                  backgroundColor: "#fafafa",
+                                                  backgroundColor: "#e0e0e0",
                                                   cursor: "pointer",
                                               }
                                             : {
@@ -135,40 +130,66 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                         );
                                     })}
                                 </div>
-                                <label>Name of shop if known</label>
                                 <input
+                                    placeholder={this.props.addNewLoc.form.name}
                                     name="name"
                                     onChange={(e) => this.handleInputChange(e)}
                                     autoComplete="off"
                                 ></input>
                                 <br></br>
-                                <label>Type of market if known</label>
                                 <select
-                                    defaultValue=""
+                                    defaultValue={
+                                        this.props.addNewLoc.form.market.type
+                                    }
                                     name="marketType"
                                     onChange={(e) => this.handleInputChange(e)}
                                     autoComplete="off"
                                 >
-                                    <option></option>
-                                    <option>African market</option>
-                                    <option>Arabic market</option>
-                                    <option>Asian market</option>
-                                    <option>Latinamerican market</option>
-                                    <option>Spanish market</option>
-                                    <option>Café/Restaurant</option>
-                                    <option>Other</option>
+                                    <option className="default-selected">
+                                        {this.props.addNewLoc.form.market.type}
+                                    </option>
+                                    <option>
+                                        {this.props.addNewLoc.form.market.af}
+                                    </option>
+                                    <option>
+                                        {this.props.addNewLoc.form.market.ar}
+                                    </option>
+                                    <option>
+                                        {this.props.addNewLoc.form.market.as}
+                                    </option>
+                                    <option>
+                                        {this.props.addNewLoc.form.market.la}
+                                    </option>
+                                    <option>
+                                        {this.props.addNewLoc.form.market.sp}
+                                    </option>
+                                    <option>
+                                        {this.props.addNewLoc.form.market.ca}
+                                    </option>
+                                    <option>
+                                        {this.props.addNewLoc.form.market.ot}
+                                    </option>
                                 </select>
                                 <br></br>
-                                <label>Yerba Mate variety if known</label>
                                 <input
+                                    placeholder={this.props.addNewLoc.form.var}
                                     name="mateVar"
                                     onChange={(e) => this.handleInputChange(e)}
                                     autoComplete="off"
                                 ></input>
                                 <br></br>
-                                <label>Description</label>
                                 <input
+                                    placeholder={this.props.addNewLoc.form.desc}
                                     name="desc"
+                                    onChange={(e) => this.handleInputChange(e)}
+                                    autoComplete="off"
+                                ></input>
+                                <br></br>
+                                <input
+                                    placeholder={
+                                        this.props.addNewLoc.form.uploader
+                                    }
+                                    name="uploader"
                                     onChange={(e) => this.handleInputChange(e)}
                                     autoComplete="off"
                                 ></input>
@@ -177,7 +198,7 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                     onClick={() => this.submit()}
                                     className="submit-new-loc"
                                 >
-                                    Submit
+                                    {this.props.addNewLoc.form.submit}
                                 </button>
                             </div>
                         )}
