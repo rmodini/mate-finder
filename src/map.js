@@ -1,7 +1,7 @@
 import React from "react";
 import secrets from "../secrets";
 import axios from "axios";
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
+import { InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import CurrentLocation from "./current-location";
 import LocationSearchInput from "./autocomplete";
 import LocationSearchInputToAddNewLoc from "./autocomplete-to-add";
@@ -23,7 +23,7 @@ export class MapContainer extends React.Component {
                 en: en,
                 es: es,
             },
-            currentLang: "en",
+            currentLang: "es",
             flag: "./imgs/es.png",
         };
     }
@@ -36,19 +36,40 @@ export class MapContainer extends React.Component {
             .catch((e) => {
                 console.log("error in /locations", e);
             });
+        axios
+            .get("/get-cookie")
+            .then((result) => {
+                this.setState({
+                    currentLang: result.data.lang,
+                    flag: `./imgs/${result.data.lang}.png`,
+                });
+            })
+            .catch((e) => {
+                console.log("error in /locations", e);
+            });
+    }
+    sendLangCookie() {
+        axios
+            .post("/change-cookie", { currentLang: this.state.currentLang })
+            .then(() => {})
+            .catch((e) => {
+                console.log("error in change cookie", e);
+            });
     }
     toggleLang() {
         this.state.currentLang == "en"
-            ? this.setState({ currentLang: "es", flag: "./imgs/en.png" })
-            : this.setState({ currentLang: "en", flag: "./imgs/es.png" });
+            ? (this.setState({ currentLang: "es", flag: "./imgs/es.png" }),
+              this.sendLangCookie())
+            : (this.setState({
+                  currentLang: "en",
+                  flag: "./imgs/en.png",
+              }),
+              this.sendLangCookie());
     }
     handleSelection(propsFromChild) {
         this.setState({
             possibleShopLoc: propsFromChild,
         });
-        // this.setState((prevState) => ({
-        //     markers: [...prevState.markers, propsFromChild],
-        // }));
     }
     onMarkerClick(props, marker, e) {
         this.setState({

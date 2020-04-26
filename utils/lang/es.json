@@ -37,6 +37,7 @@
         "contact": "Email o medio de contacto (opcional)",
         "inputText": "Tu reporte o comentario...",
         "submit": "Enviar",
-        "success": "Gracias por tu reporte! Lo veremos pronto."
+        "success": "Gracias por tu reporte! Lo veremos pronto.",
+        "error": "Tenés que poner algún texto!"
     }
 }

@@ -91,6 +91,7 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                 <div>{this.props.addNewLoc.form.title}</div>
                                 <input
                                     name="result-input"
+                                    maxLength="100"
                                     {...getInputProps({
                                         placeholder: this.props.addNewLoc.form
                                             .address,
@@ -103,7 +104,6 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                         const className = suggestion.active
                                             ? "suggestion-item--active"
                                             : "suggestion-item";
-                                        // inline style for demonstration purpose
                                         const style = suggestion.active
                                             ? {
                                                   backgroundColor: "#e0e0e0",
@@ -135,6 +135,7 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                     name="name"
                                     onChange={(e) => this.handleInputChange(e)}
                                     autoComplete="off"
+                                    maxLength="25"
                                 ></input>
                                 <br></br>
                                 <select
@@ -176,6 +177,7 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                     name="mateVar"
                                     onChange={(e) => this.handleInputChange(e)}
                                     autoComplete="off"
+                                    maxLength="30"
                                 ></input>
                                 <br></br>
                                 <input
@@ -183,6 +185,7 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                     name="desc"
                                     onChange={(e) => this.handleInputChange(e)}
                                     autoComplete="off"
+                                    maxLength="30"
                                 ></input>
                                 <br></br>
                                 <input
@@ -192,6 +195,7 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                     name="uploader"
                                     onChange={(e) => this.handleInputChange(e)}
                                     autoComplete="off"
+                                    maxLength="25"
                                 ></input>
                                 <br></br>
                                 <button

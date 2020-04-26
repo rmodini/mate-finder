@@ -26,10 +26,12 @@ export default class ReportModal extends React.Component {
                     this.props.onSubmit();
                 } else {
                     console.log("error reporting");
+                    alert(this.props.reportModal.error);
                 }
             })
             .catch((e) => {
                 console.log("error in report", e);
+                alert(this.props.reportModal.error);
             });
     }
 
@@ -42,6 +44,7 @@ export default class ReportModal extends React.Component {
                     onChange={(e) => this.handleChange(e)}
                     name="contact"
                     autoComplete="off"
+                    maxLength="50"
                     placeholder={this.props.reportModal.contact}
                 ></input>
                 <br></br>
@@ -50,6 +53,7 @@ export default class ReportModal extends React.Component {
                     onChange={(e) => this.handleChange(e)}
                     name="reportText"
                     autoComplete="off"
+                    maxLength="255"
                     placeholder={this.props.reportModal.inputText}
                 ></input>
                 <br></br>

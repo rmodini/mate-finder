@@ -47,6 +47,7 @@ export default class LocationSearchInput extends React.Component {
                         <div>
                             <input
                                 name="result-input"
+                                maxLength="100"
                                 {...getInputProps({
                                     placeholder: this.props.search.inputText,
                                     className: "location-search-input",
@@ -58,7 +59,6 @@ export default class LocationSearchInput extends React.Component {
                                     const className = suggestion.active
                                         ? "suggestion-item--active"
                                         : "suggestion-item";
-                                    // inline style for demonstration purpose
                                     const style = suggestion.active
                                         ? {
                                               backgroundColor: "#e0e0e0",

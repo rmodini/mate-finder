@@ -37,7 +37,7 @@ export default class Reports extends React.Component {
                 )}
                 {this.state.reports.length != 0 &&
                     this.state.reports.map((rep) => (
-                        <div key={rep.id}>
+                        <div className="rep" key={rep.id}>
                             <p>
                                 <strong>Contact info:</strong> {rep.contact}
                             </p>

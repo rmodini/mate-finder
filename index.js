@@ -3,6 +3,11 @@ const app = express();
 const db = require("./utils/db");
 const compression = require("compression");
 const basicAuth = require("basic-auth");
+const helmet = require("helmet");
+const secrets = require("./secrets.json");
+const cookieParser = require("cookie-parser");
+
+app.use(helmet.xssFilter());
 
 app.use(compression());
 
@@ -17,19 +22,19 @@ if (process.env.NODE_ENV != "production") {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
+app.use(cookieParser());
+
 app.use(express.json());
 
 app.use(express.static("./public"));
 
-// app.use((req, res, next) => {
-//     // deny framing this page:
-//     res.set("x-frame-options", "DENY");
-//     next();
-// });
-
 const auth = function (req, res, next) {
     const creds = basicAuth(req);
-    if (!creds || creds.name != "disco" || creds.pass != "duck") {
+    if (
+        !creds ||
+        creds.name != secrets.BASIC_AUTH_USER ||
+        creds.pass != secrets.BASIC_AUTH_PASS
+    ) {
         res.setHeader(
             "WWW-Authenticate",
             'Basic realm="Enter your credentials to see this stuff."'
@@ -48,6 +53,21 @@ app.get("/locations", (req, res) => {
         .catch((e) => {
             console.log("error getting locs", e);
         });
+});
+
+app.get("/get-cookie", (req, res) => {
+    if (req.cookies.lang) {
+        res.json({ lang: req.cookies.lang });
+    }
+});
+
+app.post("/change-cookie", (req, res) => {
+    if (req.body.currentLang == "es") {
+        res.cookie("lang", "en");
+    } else {
+        res.cookie("lang", "es");
+    }
+    res.json({});
 });
 
 app.post("/add-new-loc", (req, res) => {
@@ -113,6 +133,7 @@ app.post("/report", (req, res) => {
         })
         .catch((e) => {
             console.log("error in report", e);
+            res.json({ error: true });
         });
 });
 

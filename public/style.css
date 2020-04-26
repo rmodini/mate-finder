@@ -7,14 +7,13 @@ body {
     color: #2c2c2c;
 }
 .logo-name {
+    padding-top: 5px;
     text-decoration: none;
     width: fit-content;
 }
 .logo-name:visited {
     color: #2c2c2c;
     text-decoration: none;
-}
-.name {
 }
 .lang-flag {
     height: 20px;
@@ -24,7 +23,7 @@ body {
 }
 .lang-flag:hover {
     cursor: pointer;
-    border: 2px solid black;
+    height: 25px;
 }
 .map-container {
     display: block;
@@ -37,18 +36,17 @@ body {
     margin: 5px 0;
     width: 40%;
 }
-.suggestions {
-    border: 2px solid black;
-}
 .add-loc-form {
     margin-left: 10px;
     padding: 5px;
 }
 .add-loc-form input {
     width: 40%;
+    margin-bottom: 5px;
 }
 .add-loc-form select {
     width: 40%;
+    margin-bottom: 5px;
 }
 .add-loc-btn {
     font-weight: bold;
@@ -57,25 +55,8 @@ body {
     text-decoration: underline;
     cursor: pointer;
 }
-.add-new-loc-autocomplete {
-    /* position: absolute;
-    top: 80vh; */
-}
-.auto-complete {
-    /* position: absolute;
-    top: 70vh; */
-}
-.submissions {
-    /* position: absolute;
-    top: 70vh; */
-}
-.no-submissions {
-    /* position: absolute;
-    top: 80vh; */
-}
 .report-btn {
     float: right;
-    /* clear: both; */
 }
 .report-btn:hover {
     text-decoration: underline;
@@ -87,8 +68,13 @@ body {
 }
 .report-contact {
     width: 40%;
+    margin-bottom: 5px;
 }
 .report-input {
     width: 70%;
     height: 10vh;
+}
+.border-bot {
+    padding-bottom: 5px;
+    border-bottom: 2px solid black;
 }

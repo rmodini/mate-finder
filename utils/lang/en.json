@@ -37,6 +37,7 @@
         "contact": "Email or contact info (optional)",
         "inputText": "Insert report or comment here...",
         "submit": "Send report",
-        "success": "Thank you for your report! We will take a look at it shortly."
+        "success": "Thank you for your report! We will take a look at it shortly.",
+        "error": "You must include a text."
     }
 }

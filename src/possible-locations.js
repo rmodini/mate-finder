@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import secrets from "../secrets";
 import CurrentLocation from "./current-location";
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
+import { Marker, GoogleApiWrapper } from "google-maps-react";
 
 export class PossibleLocations extends React.Component {
     constructor(props) {
@@ -16,7 +16,6 @@ export class PossibleLocations extends React.Component {
                 this.setState(() => ({
                     possibleLocs: result.data,
                 }));
-                console.log(this.state);
             })
             .catch((e) => {
                 console.log("error in possible locs", e);
@@ -103,7 +102,7 @@ export class PossibleLocations extends React.Component {
                 <div className="submissions">
                     {this.state.possibleLocs.length != 0 &&
                         this.state.possibleLocs.map((loc) => (
-                            <div key={loc.id}>
+                            <div className="border-bot" key={loc.id}>
                                 <div>Address: {loc.address}</div>
                                 <div>Name: {loc.name}</div>
                                 <div>Market Type: {loc.market_type}</div>
