@@ -3,7 +3,8 @@ import axios from "axios";
 // import secrets from "../secrets";
 import CurrentLocation from "./current-location";
 import { Marker, GoogleApiWrapper } from "google-maps-react";
-import {} from "dotenv/config";
+const GMApiKey = process.env.REACT_APP_GM_API_KEY;
+console.log("KEY", process.env.REACT_APP_GM_API_KEY);
 
 export class PossibleLocations extends React.Component {
     constructor(props) {
@@ -136,5 +137,5 @@ export class PossibleLocations extends React.Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: process.env.REACT_APP_GM_API_KEY,
+    apiKey: GMApiKey,
 })(PossibleLocations);
