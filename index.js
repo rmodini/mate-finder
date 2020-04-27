@@ -4,7 +4,7 @@ const db = require("./utils/db");
 const compression = require("compression");
 const basicAuth = require("basic-auth");
 const helmet = require("helmet");
-const secrets = require("./secrets.json");
+// const secrets = require("./secrets.json");
 const cookieParser = require("cookie-parser");
 
 app.use(helmet.xssFilter());

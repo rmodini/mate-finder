@@ -1,5 +1,5 @@
 import React from "react";
-import secrets from "../secrets";
+// import secrets from "../secrets";
 import axios from "axios";
 import { InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import CurrentLocation from "./current-location";
