@@ -58,6 +58,8 @@ app.get("/locations", (req, res) => {
 app.get("/get-cookie", (req, res) => {
     if (req.cookies.lang) {
         res.json({ lang: req.cookies.lang });
+    } else {
+        res.json({});
     }
 });
 

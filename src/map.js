@@ -39,10 +39,12 @@ export class MapContainer extends React.Component {
         axios
             .get("/get-cookie")
             .then((result) => {
-                this.setState({
-                    currentLang: result.data.lang,
-                    flag: `./imgs/${result.data.lang}.png`,
-                });
+                if (result.data.lang) {
+                    this.setState({
+                        currentLang: result.data.lang,
+                        flag: `./imgs/${result.data.lang}.png`,
+                    });
+                }
             })
             .catch((e) => {
                 console.log("error in /locations", e);
