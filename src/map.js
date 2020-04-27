@@ -23,7 +23,6 @@ export class MapContainer extends React.Component {
                 en: en,
                 es: es,
             },
-            // reportBtnText: "Reportar/Contacto",
             currentLang: "es",
             flag: "./imgs/es.png",
         };
@@ -300,5 +299,7 @@ export class MapContainer extends React.Component {
 }
 
 export default GoogleApiWrapper({
+    // apiKey: "AIzaSyBzgMK-mz_sovYVlDh5FCNfnK18iQtWeN4",
     apiKey: process.env.GOOGLEMAPS_API_KEY,
+    // apiKey: secrets.GOOGLEMAPS_API_KEY_2,
 })(MapContainer);
