@@ -135,9 +135,5 @@ export class PossibleLocations extends React.Component {
 }
 
 export default GoogleApiWrapper({
-    // apiKey: "AIzaSyBzgMK-mz_sovYVlDh5FCNfnK18iQtWeN4",
-    apiKey:
-        process.env.GOOGLEMAPS_API_KEY ||
-        "AIzaSyBzgMK-mz_sovYVlDh5FCNfnK18iQtWeN4",
-    // apiKey: secrets.GOOGLEMAPS_API_KEY_2,
+    apiKey: process.env.GOOGLEMAPS_API_KEY,
 })(PossibleLocations);
