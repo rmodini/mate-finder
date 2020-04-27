@@ -6,6 +6,7 @@ const basicAuth = require("basic-auth");
 const helmet = require("helmet");
 // const secrets = require("./secrets.json");
 const cookieParser = require("cookie-parser");
+require("dotenv").config();
 
 app.use(helmet.xssFilter());
 
