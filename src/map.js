@@ -8,9 +8,7 @@ import LocationSearchInputToAddNewLoc from "./autocomplete-to-add";
 import ReportModal from "./report-modal";
 import en from "../utils/lang/en.json";
 import es from "../utils/lang/es.json";
-const GMApiKey = process.env.REACT_APP_GM_API_KEY;
-console.log("KEY", process.env.REACT_APP_GM_API_KEY);
-console.log("gmaapik", GMApiKey);
+console.log("p e", process.env);
 
 export class MapContainer extends React.Component {
     constructor(props) {
@@ -304,5 +302,5 @@ export class MapContainer extends React.Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: GMApiKey,
+    apiKey: process.env.REACT_APP_GM_API_KEY,
 })(MapContainer);

@@ -50,7 +50,6 @@
         "socket.io": "^2.2.0",
         "spiced-pg": "^1.0.0",
         "uid-safe": "^2.1.4",
-        "webpack": "^4.29.6",
         "webpack-dev-middleware": "^1.8.4"
     },
     "jest": {
@@ -60,5 +59,9 @@
     },
     "keywords": [],
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "devDependencies": {
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.11"
+    }
 }
