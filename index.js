@@ -32,8 +32,8 @@ const auth = function (req, res, next) {
     const creds = basicAuth(req);
     if (
         !creds ||
-        creds.name != secrets.BASIC_AUTH_USER ||
-        creds.pass != secrets.BASIC_AUTH_PASS
+        creds.name != process.env.BASIC_AUTH_USER ||
+        creds.pass != process.env.BASIC_AUTH_PASS
     ) {
         res.setHeader(
             "WWW-Authenticate",
@@ -169,6 +169,6 @@ app.get("*", function (req, res) {
     res.sendFile(__dirname + "/index.html");
 });
 
-app.listen(8080, function () {
+app.listen(process.env.PORT || 8080, function () {
     console.log("I'm listening.");
 });
