@@ -8,6 +8,7 @@ import LocationSearchInputToAddNewLoc from "./autocomplete-to-add";
 import ReportModal from "./report-modal";
 import en from "../utils/lang/en.json";
 import es from "../utils/lang/es.json";
+import {} from "dotenv/config";
 
 export class MapContainer extends React.Component {
     constructor(props) {

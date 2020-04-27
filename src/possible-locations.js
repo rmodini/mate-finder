@@ -3,6 +3,7 @@ import axios from "axios";
 // import secrets from "../secrets";
 import CurrentLocation from "./current-location";
 import { Marker, GoogleApiWrapper } from "google-maps-react";
+import {} from "dotenv/config";
 
 export class PossibleLocations extends React.Component {
     constructor(props) {
