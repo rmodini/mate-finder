@@ -28,14 +28,13 @@ export class PossibleLocations extends React.Component {
     accept(id) {
         axios
             .post("/accept", { id: id })
-            .then((res) => {
+            .then(() => {
                 axios
                     .get("possible-locs-adm")
                     .then((result) => {
                         this.setState(() => ({
                             possibleLocs: result.data,
                         }));
-                        console.log(this.state);
                     })
                     .catch((e) => {
                         console.log("error in possible locs", e);
@@ -46,7 +45,7 @@ export class PossibleLocations extends React.Component {
     decline(id) {
         axios
             .post("/decline", { id: id })
-            .then((res) => {
+            .then(() => {
                 axios
                     .get("possible-locs-adm")
                     .then((result) => {

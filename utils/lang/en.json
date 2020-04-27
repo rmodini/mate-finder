@@ -1,5 +1,7 @@
 {
     "report": "Report/Contact",
+    "name": "Name: ",
+    "mateVar": "Variety: ",
     "added_at": "Uploaded on ",
     "added_by": "Uploaded by ",
     "search": {

@@ -21,6 +21,17 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
         });
     }
 
+    handleSelectChange({ target }) {
+        let marketTypes = this.props.addNewLoc.form.market;
+        for (let key in marketTypes) {
+            if (marketTypes[key] == target.value) {
+                this.setState({
+                    [target.name]: key,
+                });
+            }
+        }
+    }
+
     submit() {
         axios
             .post("/add-new-loc", {
@@ -35,7 +46,10 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
             .then((result) => {
                 if (result.data.error) {
                     alert(this.props.addNewLoc.form.error);
-                } else alert(this.props.addNewLoc.form.success);
+                } else {
+                    alert(this.props.addNewLoc.form.success);
+                    this.setState({ showForm: !this.state.showForm });
+                }
             })
             .catch((e) => {
                 console.log("error in add new loc", e);
@@ -75,7 +89,7 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                     getSuggestionItemProps,
                     loading,
                 }) => (
-                    <div>
+                    <div className="input-wrap">
                         <p>
                             {this.props.addNewLoc.text1}
                             <strong
@@ -143,10 +157,10 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                         this.props.addNewLoc.form.market.type
                                     }
                                     name="marketType"
-                                    onChange={(e) => this.handleInputChange(e)}
+                                    onChange={(e) => this.handleSelectChange(e)}
                                     autoComplete="off"
                                 >
-                                    <option className="default-selected">
+                                    <option>
                                         {this.props.addNewLoc.form.market.type}
                                     </option>
                                     <option>
@@ -177,7 +191,7 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                     name="mateVar"
                                     onChange={(e) => this.handleInputChange(e)}
                                     autoComplete="off"
-                                    maxLength="30"
+                                    maxLength="60"
                                 ></input>
                                 <br></br>
                                 <input
@@ -185,7 +199,7 @@ export default class LocationSearchInputToAddNewLoc extends React.Component {
                                     name="desc"
                                     onChange={(e) => this.handleInputChange(e)}
                                     autoComplete="off"
-                                    maxLength="30"
+                                    maxLength="70"
                                 ></input>
                                 <br></br>
                                 <input

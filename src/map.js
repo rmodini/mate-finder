@@ -23,6 +23,7 @@ export class MapContainer extends React.Component {
                 en: en,
                 es: es,
             },
+            // reportBtnText: "Reportar/Contacto",
             currentLang: "es",
             flag: "./imgs/es.png",
         };
@@ -152,30 +153,57 @@ export class MapContainer extends React.Component {
 
                                 {this.state.selectedPlace.other && (
                                     <div>
+                                        {this.state.selectedPlace.other
+                                            .name && (
+                                            <p>
+                                                {this.state.currentLang == "en"
+                                                    ? this.state.lang.en.name
+                                                    : this.state.lang.es.name}
+                                                {
+                                                    this.state.selectedPlace
+                                                        .other.name
+                                                }
+                                            </p>
+                                        )}
+
                                         <p>
-                                            {
-                                                this.state.selectedPlace.other
-                                                    .name
-                                            }
+                                            {this.state.currentLang == "en"
+                                                ? this.state.lang.en.addNewLoc
+                                                      .form.market[
+                                                      this.state.selectedPlace
+                                                          .other.market_type
+                                                  ]
+                                                : this.state.lang.es.addNewLoc
+                                                      .form.market[
+                                                      this.state.selectedPlace
+                                                          .other.market_type
+                                                  ]}
                                         </p>
-                                        <p>
-                                            {
-                                                this.state.selectedPlace.other
-                                                    .market_type
-                                            }
-                                        </p>
-                                        <p>
-                                            {
-                                                this.state.selectedPlace.other
-                                                    .mate_var
-                                            }
-                                        </p>
-                                        <p>
-                                            {
-                                                this.state.selectedPlace.other
-                                                    .descr
-                                            }
-                                        </p>
+                                        {this.state.selectedPlace.other
+                                            .mate_var && (
+                                            <p>
+                                                {this.state.currentLang == "en"
+                                                    ? this.state.lang.en.mateVar
+                                                    : this.state.lang.es
+                                                          .mateVar}
+                                                {
+                                                    this.state.selectedPlace
+                                                        .other.mate_var
+                                                }
+                                            </p>
+                                        )}
+                                        {this.state.selectedPlace.other
+                                            .descr && (
+                                            <p className="italic">
+                                                {'"'}
+                                                {
+                                                    this.state.selectedPlace
+                                                        .other.descr
+                                                }
+                                                {'"'}
+                                            </p>
+                                        )}
+
                                         {this.state.selectedPlace.other
                                             .uploader && (
                                             <p>
@@ -248,9 +276,11 @@ export class MapContainer extends React.Component {
                     </div>
                 )}
                 <p className="report-btn" onClick={() => this.handleClick()}>
-                    {this.state.currentLang == "en"
-                        ? this.state.lang.en.report
-                        : this.state.lang.es.report}
+                    {this.state.showReportInput && "X"}
+                    {!this.state.showReportInput &&
+                        (this.state.currentLang == "en"
+                            ? this.state.lang.en.report
+                            : this.state.lang.es.report)}
                 </p>
                 <div className="report-modal">
                     {this.state.showReportInput && (

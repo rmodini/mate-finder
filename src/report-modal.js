@@ -37,7 +37,7 @@ export default class ReportModal extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="input-wrap">
                 <h3>{this.props.reportModal.text}</h3>
                 <input
                     className="report-contact"

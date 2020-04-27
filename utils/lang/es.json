@@ -1,5 +1,7 @@
 {
     "report": "Reportar/Contacto",
+    "name": "Nombre: ",
+    "mateVar": "Variedad: ",
     "added_at": "Subido el ",
     "added_by": "Subido por ",
     "search": {
@@ -16,11 +18,11 @@
             "name": "Nombre del negocio (si se sabe)",
             "market": {
                 "type": "Tipo de mercado (si se sabe)",
-                "af": "Africano",
-                "ar": "Árabe",
-                "as": "Asiático",
-                "la": "Latinoamericano",
-                "sp": "Español",
+                "af": "Mercado africano",
+                "ar": "Mercado árabe",
+                "as": "Mercado asiático",
+                "la": "Mercado latinoamericano",
+                "sp": "Mercado español",
                 "ca": "Café/Restaurante",
                 "ot": "Otro"
             },

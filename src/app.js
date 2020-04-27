@@ -15,11 +15,11 @@ export default class App extends React.Component {
             <React.Fragment>
                 <BrowserRouter>
                     <div className="header">
-                        <h3 className="name">
+                        <h2 className="name">
                             <Link className="logo-name" to="/">
-                                Mate Finder
+                                BuscaMate
                             </Link>
-                        </h3>
+                        </h2>
 
                         <div className="blank"></div>
                         <div id="nav-bar"></div>
