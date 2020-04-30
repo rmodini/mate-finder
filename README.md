@@ -5,6 +5,8 @@ Search for yerba mate worldwide and help others to find it by adding new selling
 ## Description
 
 It is always difficult for mate drinkers to find a place to buy yerba mate after they move to a new city, specially outside South America. This web app is here to solve this problem!
+
+
 It has 2 main features:
 ### Look for mate nearby
 Type your address or the address where you want to search for mate nearby. See the selling points that are near, if any.
@@ -15,6 +17,9 @@ Type your address or the address where you want to search for mate nearby. See t
 Help other mate seekers by adding a location where you know they sell yerba mate. Then future searchers will find it on the map if they look near this location.
 
 ![Adding a new Location](https://user-images.githubusercontent.com/58660281/80589365-4e8f0500-8a1a-11ea-8ba8-2c13517fb05c.png)
+
+### Language
+Little flag at the top right to switch languages (between English and Spanish).
 
 ### Admin Page
 There is also a super secret route that only an authorized admin can log in. There the admin can see new location proposals sent by users, and accept or decline it according to guidelines and common sense.
