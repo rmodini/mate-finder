@@ -12,7 +12,7 @@ It has 2 main features:
 
 Type your address or the address where you want to search for mate nearby. See the selling points that are near, if any.
 
-![Landing Page](https://user-images.githubusercontent.com/58660281/80588596-ed1a6680-8a18-11ea-86c7-7daecf8aac71.png)
+![Landing Page](https://user-images.githubusercontent.com/58660281/82734329-a9b2cf80-9d1a-11ea-8576-506b956bce10.png)
 
 ### Add a new location
 
